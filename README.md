@@ -6,9 +6,21 @@ Personal OS is a zero-cost, browser-based personal operating system built around
 
 **Capture → Organize → Understand → Recommend → Act**
 
-## Current version: V4.0
+## Current version: V4.1
 
-V4 is a major visual product redesign. It keeps the V3 intelligence layer but changes the interface direction toward a premium, Apple-inspired experience: calmer surfaces, stronger typography, less chrome, softer depth, and more deliberate interaction patterns.
+V4.1 is a stability and polish release on top of the V4 premium UI redesign. It removes legacy script collisions, restores keyboard search, makes the date and greeting dynamic, hardens browser-data loading, and improves mobile access to Settings.
+
+## V4.1 improvements — Bug fixes & hardening
+
+- **Removed duplicate legacy React scripts** — V4 now runs from a single active application script instead of retaining conflicting V2/V3 global declarations.
+- **Restored `Ctrl+K` / `⌘K` search** — the global shortcut now focuses the V4 search field again.
+- **Dynamic date** — the Home page no longer contains a hard-coded release date.
+- **Dynamic greeting** — Home now switches between morning, afternoon and evening based on the current local time.
+- **Safer local-storage loading** — malformed or incomplete workspace structures no longer get treated as valid V4 state.
+- **Safer activity handling** — activity history is guarded as an array during migration and mutations.
+- **Mobile Settings access** — the floating mobile navigation now includes a `More` entry for Settings instead of silently hiding it.
+- **Activity logging consistency** — task/project/knowledge deletion and mutations retain a usable local activity trail.
+- **Temporary CI cleanup** — temporary V4.1 fix workflows were removed after their successful runs; the production repo does not depend on them.
 
 ## V4.0 improvements — Premium UI
 
@@ -80,17 +92,17 @@ V3 introduced the local intelligence foundation that V4 preserves:
 
 ## Current feature set
 
-| Module | V4 capability |
+| Module | V4.1 capability |
 | --- | --- |
-| Home | Premium command center, Daily Top 3, operating brief, project attention |
+| Home | Premium command center, dynamic greeting/date, Daily Top 3, operating brief, project attention |
 | Focus | Recommended next task and completion workflow |
 | Tasks | CRUD, priority, status, due dates, V3 local ranking score |
 | Projects | CRUD, progress, project health and risk signals |
 | Knowledge | CRUD, tags, smart search and clean library presentation |
 | Insights | Completion, aging, workload and project-risk views |
-| Activity | Local operating history |
+| Activity | Local operating history with safer persistence |
 | AI COO | Local recommendations, diagnosis and action guidance |
-| Settings | Schema health, JSON backup/restore and reset |
+| Settings | Schema health, JSON backup/restore, reset and mobile access |
 
 ## Versioning policy
 
@@ -111,7 +123,7 @@ Personal OS is designed to remain **₹0** for the core experience.
 - No local software installation required
 - Browser-based deployment through GitHub Pages
 
-V4 continues to use local deterministic intelligence. It does not require an external LLM, vector database, or paid AI service.
+V4.1 continues to use local deterministic intelligence. It does not require an external LLM, vector database, or paid AI service.
 
 ## Data model & privacy
 
@@ -119,7 +131,7 @@ Personal OS is local-first. Workspace data is stored in browser storage and is n
 
 Because browser storage is device/browser-specific, data does not automatically sync between devices yet.
 
-V4 uses a dedicated `personal_os_v4` storage key and migrates data from `personal_os_v3`, `personal_os_v2`, or `personal_os_v1` when available. The source data is not intentionally destroyed during migration.
+V4 uses a dedicated `personal_os_v4` storage key and migrates data from `personal_os_v3`, `personal_os_v2`, or `personal_os_v1` when available. V4.1 additionally validates the core collections and protects activity history handling during startup and mutations.
 
 ## Roadmap
 
@@ -129,6 +141,7 @@ V4 uses a dedicated `personal_os_v4` storage key and migrates data from `persona
 - Add richer relationship editing between tasks, projects and knowledge
 - Improve historical analytics as more local activity accumulates
 - Add stronger accessibility and keyboard navigation polish
+- Add a clearer mobile `More` surface for secondary utilities
 
 ### V5 candidates
 
@@ -158,4 +171,4 @@ The application remains intentionally lightweight:
 - Browser storage for persistence
 - No server required
 
-V4 is primarily a presentation-layer redesign over the V3 intelligence foundation. The visual system is isolated in V4 styles/components so future product releases can continue evolving the experience without changing the core zero-cost architecture.
+V4.1 remains primarily a presentation-layer and reliability release over the V3 intelligence foundation. The premium visual system and local intelligence remain browser-side so the core product stays easy to run and maintain at ₹0.
