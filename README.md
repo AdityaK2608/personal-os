@@ -6,29 +6,25 @@ Personal OS is a zero-cost, browser-based personal operating system built around
 
 **Capture → Organize → Understand → Recommend → Act**
 
-## Current version: V7.1 — Runtime Stability
+## Current version: V7.2 — Runtime Reliability
 
-V7.1 keeps the V7 Knowledge Engine but removes the React/Babel compilation dependency from the application shell. The site now uses a dependency-free browser runtime so GitHub Pages can render the interface directly without a client-side compilation step.
+V7.2 keeps the V7 Knowledge Engine and removes the remaining framework/runtime failure risk from the deployed application. The active site is now a **single dependency-free HTML/CSS/JavaScript application** with an explicit visible fallback if JavaScript fails.
 
-## V7.1 — Blank-page stability release
+## V7.2 — Blank-page reliability release
 
-### Runtime reliability
+### Runtime hardening
 
-- Removed React/Babel from the active application shell.
-- The app now renders with native browser JavaScript.
-- No framework compilation is required before the interface mounts.
-- Removed the extra CDN runtime failure points from the application layer.
-- Kept the same static GitHub Pages deployment model.
-
-### Data compatibility
-
-- V7.1 uses `personal_os_v71` as its active workspace key.
-- Older `personal_os_v7`, `personal_os_v6`, `personal_os_v5`, `personal_os_v4`, `personal_os_v3`, `personal_os_v2` and `personal_os_v1` data is still considered during startup migration.
-- Workspace data remains local to the browser.
+- Removed the active React/Babel dependency from the application shell.
+- The interface renders using native browser JavaScript only.
+- No client-side compilation is needed before the app can mount.
+- No external application CDN is required.
+- Added a visible loading/fallback surface so a runtime error does not appear as a silent blank page.
+- Added defensive startup error reporting in the page itself.
+- Kept the GitHub Pages and ₹0 deployment model.
 
 ### Knowledge Engine retained
 
-- 176 generated built-in reference entries across 11 domains.
+- **176 built-in reference entries** across 11 domains.
 - Linux
 - RHEL
 - Networking
@@ -41,21 +37,37 @@ V7.1 keeps the V7 Knowledge Engine but removes the React/Babel compilation depen
 - AI & ML
 - Productivity
 
-The corpus is generated from topic packs inside the static application rather than fetched from a remote service.
+The corpus is generated locally from topic packs embedded in the static application and does not depend on a remote service.
+
+### Workspace features retained
+
+- Personal command center.
+- Tasks with NOW / LATER / FOLLOW-UP lanes.
+- Projects and areas.
+- Knowledge and personal notes.
+- Search across knowledge, tasks and projects.
+- Knowledge → Task conversion.
+- Local activity history.
+- Local browser persistence.
+- JSON backup.
+- Mobile navigation.
+- Keyboard shortcuts.
+
+## V7.1 — Knowledge Engine & previous runtime stabilization
+
+- Knowledge Engine with 176 built-in references.
+- 11 technical/productivity domains.
+- Built-in vs Personal knowledge distinction.
+- Article views and domain filtering.
+- Global search.
+- Personal note relationships.
+- Knowledge → Task conversion.
+- Dependency-aware execution foundation.
+- Dependency-free runtime direction started.
 
 ## V7.0 — Knowledge Engine
 
 V7 made knowledge a first-class product surface with a large built-in technical reference library alongside private notes.
-
-- Domain browsing.
-- Built-in vs Personal knowledge distinction.
-- Article views.
-- Topic tags.
-- Global search across knowledge, tasks and projects.
-- Personal note relationships.
-- Knowledge → Task conversion.
-- Local Ask My OS context search.
-- Zero API / zero backend requirement.
 
 ## V6.0 — Personal Brain
 
@@ -64,10 +76,9 @@ V7 made knowledge a first-class product surface with a large built-in technical 
 - NOW / LATER / FOLLOW-UP task lanes.
 - Dependencies and Blocked state.
 - Connected knowledge.
-- Activity history.
 - Focus and Daily Top 3.
 - Local deterministic AI COO.
-- IndexedDB-first technical foundation.
+- IndexedDB-first foundation.
 
 ## V5.x — Technical foundation
 
@@ -123,17 +134,17 @@ V7 made knowledge a first-class product surface with a large built-in technical 
 
 ## Current feature set
 
-| Module | V7.1 capability |
+| Module | V7.2 capability |
 | --- | --- |
 | Home | Personal command center, daily objective, Top 3, blockers, project risks and knowledge pulse |
-| Focus | Highest-leverage execution queue with NOW/LATER/FOLLOW-UP logic |
-| Tasks | CRUD, priority, status, due date, lane, area, project, context and dependencies |
-| Projects | Goals, health, progress, linked tasks and linked knowledge |
+| Tasks | NOW/LATER/FOLLOW-UP, priorities, status, due dates, areas, projects and dependencies |
+| Projects | Goals, health, progress and linked task context |
 | Areas | Persistent context layer for responsibilities |
-| Knowledge | 176 built-in references + private notes, domain filters, article views and task conversion |
-| Ask My OS | Local context search over tasks, projects and knowledge |
+| Knowledge | 176 built-in references + private notes, domain filtering and article views |
+| Ask/Search | Local search over built-in knowledge, notes, tasks and projects |
 | Activity | Local operating history |
-| Settings | Workspace controls, backup and Knowledge Engine information |
+| Backup | Browser-local JSON export |
+| Runtime | Native HTML/CSS/JavaScript with no framework requirement |
 
 ## Knowledge architecture
 
@@ -152,7 +163,7 @@ Knowledge Engine
 └── Productivity
 ```
 
-Each built-in record contains a title, domain, summary, practical guidance and searchable tags. The corpus can grow without putting individual articles into separate deployment dependencies.
+Each built-in record contains a title, domain, summary, practical guidance and searchable tags. The corpus is intentionally structured so future releases can add deeper command references, playbooks and cross-links.
 
 ## Product model
 
@@ -172,7 +183,7 @@ Task / Project / Knowledge
         AI COO
 ```
 
-The long-term objective is a connected personal operating system where knowledge can influence action and actions can build knowledge.
+The objective is a connected personal operating system where knowledge can influence action and actions can build knowledge.
 
 ## Zero-cost & privacy principles
 
@@ -184,24 +195,29 @@ Personal OS is designed for **₹0** core operation:
 - No local application installation.
 - Browser-based deployment through GitHub Pages.
 - Deterministic local intelligence by default.
+- No required third-party application runtime.
 
 Workspace data remains browser-local and is not automatically uploaded to GitHub by the application. Cross-device synchronization is not part of the core build yet.
 
 ## Architecture
 
-V7.1 is a single static browser application:
+V7.2 is a single static browser application:
 
 - Native HTML/CSS/JavaScript runtime.
 - No React runtime required by the active shell.
 - No Babel compilation required.
 - Single static `index.html`.
 - Browser-local persistence.
-- V1–V7 migration compatibility through normalization.
+- V1–V7 migration compatibility through normalization where available.
 - Bundled 176-entry knowledge corpus.
-- Local search and relationship matching.
-- Deterministic execution scoring and local AI COO guidance.
+- Local search and knowledge relationships.
+- Deterministic execution guidance.
 - No server required.
 - GitHub Pages hosting.
+
+## Runtime reliability rule
+
+A release is not considered complete when the source merely exists in GitHub. The application must also have a visible render path that does not depend on optional framework loading. V7.2 therefore keeps a plain HTML fallback visible before application JavaScript executes and exposes startup errors in-page rather than failing to an empty viewport.
 
 ## Versioning policy
 
