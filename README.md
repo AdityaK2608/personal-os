@@ -1,213 +1,249 @@
 # Personal OS
 
-**Personal command center + knowledge base + AI COO.**
+**Personal command center + second brain + AI COO.**
 
 Personal OS is a zero-cost, browser-based personal operating system built around:
 
 **Capture → Organize → Understand → Recommend → Act**
 
-## Current version: V5.1
+## Current version: V6.0 — Personal Brain
 
-V5.1 is a major usability and technical-consolidation release. It keeps the premium V4/V5 visual direction while making the browser application easier to operate, recover and extend.
+V6 is the major product-direction change. Personal OS is no longer structured as separate dashboard modules alone; it now treats **tasks, projects, knowledge, areas, dependencies and activity as one connected personal context system**.
 
-## V5.1 — Major update
+The design direction is inspired by the broader PersonalOS philosophy of surfacing important work, keeping contextual knowledge connected, and making personal context available to AI. The implementation here is intentionally browser-native, local-first and independent of WordPress or a paid backend. citeturn974833view0
 
-### Execution engine
+## V6.0 — Personal Brain
 
-- Dependency-aware task model with explicit `dependsOn` relationships.
-- Ranking combines priority, due-date urgency, project health, task age and dependency blocking.
-- Focus mode and Home share the same recommended queue.
-- Keyboard-first task creation with `Ctrl+N` / `⌘N`.
+### Connected personal context
 
-### Recovery & resilience
+- **Areas** — persistent responsibilities such as Work, Personal and Learning.
+- **Projects** — goals, health, execution progress and connected knowledge.
+- **Tasks** — execution items with NOW / LATER / FOLLOW-UP lanes.
+- **Dependencies** — tasks can explicitly block other tasks.
+- **Knowledge** — notes can belong to areas/projects and connect back to execution.
+- **Activity** — a local history of meaningful workspace changes.
 
-- IndexedDB remains the primary workspace store.
-- localStorage remains a compatibility/fallback path.
-- Manual and automatic local snapshots are retained in a dedicated snapshot store.
-- Snapshot restore creates a safety snapshot before replacement.
-- Deleted tasks and notes move into a local recovery bin instead of being destroyed immediately.
-- JSON export remains available, including optional SHA-256 integrity hashing through Web Crypto.
+### Personal command center
 
-### Knowledge relationships
+The Home page is now an operating surface rather than a generic dashboard:
 
-- Notes are matched locally to tasks and projects using lightweight token overlap.
-- Each knowledge card exposes related execution context.
-- Knowledge can be converted directly into a task.
-- No embeddings, vector database or paid AI service is required.
+- Dynamic greeting and date.
+- Daily objective.
+- Highest-leverage “Do this now” action.
+- Daily Top 3 execution queue.
+- Blocker and project-risk signals.
+- Second-brain context counts.
 
-### Analytics & operating visibility
+### Task execution engine
 
-- Seven-day local activity view.
-- Open-work aging signal.
-- Priority queue signal.
-- Snapshot and recovery counts.
-- Project execution pulse based on linked task completion while preserving the project baseline.
-- Activity filtering by task, knowledge, recovery and system events.
+V6 adds an execution model designed around deciding **what matters now**:
 
-### Technical consolidation
+- NOW / LATER / FOLLOW-UP lanes.
+- Priority scoring.
+- Deadline urgency.
+- Project health weighting.
+- Task age weighting.
+- Dependency penalties.
+- Explicit Blocked state.
+- Shared ranking between Home and Focus.
 
-- V5.1 is a single consolidated application runtime rather than another legacy-script layer.
-- V5 browser storage is normalized on startup so older V1–V5 data can continue into the new model.
-- UI, storage, execution intelligence and recovery behavior now live in one maintainable application surface.
+### Knowledge-to-action workflows
+
+- Related execution records are surfaced beside knowledge notes.
+- Notes can become tasks directly.
+- Project and area context is retained when converting knowledge into action.
+- Search spans tasks, projects and knowledge.
+- Lightweight local relationship matching avoids vector databases and API costs.
+
+### AI COO 6.0
+
+The AI COO remains deterministic and private, but now reasons over the connected model:
+
+- Blocker diagnosis.
+- Project health warnings.
+- Deadline pressure.
+- NOW queue guidance.
+- Explainable next-step recommendations.
+- “Ask My OS” workflow through the global context search.
+
+### Local data platform
+
+V6 keeps the V5 technical foundation:
+
+- IndexedDB-first persistence.
+- localStorage compatibility/fallback.
+- V5 → V6 migration by normalization.
+- Versioned schema marker.
+- JSON export/import.
+- Local recovery snapshots and recovery bin from the V5 architecture.
+- Optional SHA-256 integrity digest on exports where Web Crypto is available.
+
+## V5.1 — Execution & recovery foundation
+
+- IndexedDB-first browser persistence.
+- LocalStorage fallback.
+- Dependency-aware task scoring.
+- Recovery snapshots.
+- Recovery bin for deleted tasks and knowledge.
+- Knowledge → Task conversion.
+- Seven-day local execution analytics.
+- Activity filtering.
+- Keyboard-first shortcuts.
 
 ## V5.0 — Technical foundation
 
-- IndexedDB-first persistence with localStorage fallback.
-- V1 → V5 migration path.
-- Schema normalization.
-- Local recovery snapshots.
-- Recovery bin foundation.
+- Browser database layer.
+- Versioned migration and normalization.
+- Local snapshots.
 - JSON backup/restore.
-- Dependency-aware scoring foundation.
-- Knowledge-to-action relationship matching.
-- Local deterministic AI COO.
+- SHA-256 backup digest.
+- Dependency-aware scoring.
+- Knowledge-to-action matching.
+- Project-aware execution signals.
 
 ## V4.1 — Stability & hardening
 
 - Removed duplicate legacy React application scripts.
 - Restored `Ctrl+K` / `⌘K` search.
-- Dynamic local date and greeting.
-- Safer local-storage collection validation.
+- Dynamic date and greeting.
+- Safer local-storage validation.
 - Safer activity-history handling.
 - Mobile Settings access.
-- More consistent activity logging.
+- More consistent mutation logging.
 
 ## V4.0 — Premium UI
 
-- Apple-inspired visual language.
-- Floating glass sidebar and responsive bottom navigation.
-- Translucent surfaces, blur and restrained contrast.
-- Larger display hierarchy and calmer dashboard composition.
-- Premium task presentation and executive-style dashboard.
-- Redesigned Focus, Knowledge, Insights and AI COO surfaces.
+- Apple-inspired light visual language.
+- Floating glass sidebar.
+- Translucent surfaces and blur.
+- Large display hierarchy.
+- Premium task and dashboard presentation.
+- Responsive mobile navigation.
+- Redesigned Focus, Knowledge, Insights and AI COO.
 
 ## V3.0 — Intelligence foundation
 
 - Smart task scoring.
-- Daily Top 3 and next-action guidance.
+- Daily Top 3.
 - Overdue and neglected-work detection.
-- Smart search across tasks, projects and knowledge.
-- Knowledge-to-action matching.
-- Local deterministic AI COO diagnosis and recommendations.
-- Completion, aging, workload and project-risk insights.
-- Versioned data schema and migration.
+- Smart search.
+- Knowledge-to-action relationship matching.
+- Deterministic AI COO recommendations.
+- Local workload and project-risk insights.
 
 ## V2.0 — Workspace foundation
 
 - Focus Mode.
-- Command Palette / `Ctrl+K`.
-- Unified search.
+- Command Palette.
+- Unified workspace search.
 - Stronger local AI COO reasoning.
-- V1/V1.1 → V2 migration.
-- Dedicated V2 storage.
-- JSON backup and restore.
-- Project health model.
-- Activity history and mobile navigation.
+- V1 migration.
+- JSON backup/restore.
+- Project health.
+- Activity history.
 
-## V1.1 — Product foundation expansion
+## V1.1 / V1.0 — Original foundation
 
-- Dynamic date and greeting.
-- Task/project/knowledge CRUD.
+- Dynamic dashboard.
+- Tasks, projects and knowledge CRUD.
 - Tags and categories.
-- Automatic activity logging.
-- Global search.
-- Project health and dashboard improvements.
-- JSON export/import/reset controls.
-
-## V1.0 — Original foundation
-
-- Dashboard.
-- Tasks.
-- Projects.
-- Knowledge Base.
 - Activity timeline.
-- AI COO foundation.
+- Global search.
 - Browser persistence.
 - GitHub Pages hosting.
 
 ## Current feature set
 
-| Module | V5.1 capability |
+| Module | V6 capability |
 | --- | --- |
-| Home | Premium command center, dynamic greeting/date, objective, Daily Top 3, operating pulse |
-| Focus | Dependency-aware recommended next task and one-action completion |
-| Tasks | CRUD, priorities, statuses, due dates, dependencies and execution score |
-| Projects | Health, progress baseline and linked-task execution pulse |
-| Knowledge | CRUD, tags, related tasks/projects and Knowledge → Task conversion |
-| Insights | Seven-day activity, aging, queue load, knowledge and recovery signals |
-| AI COO | Deterministic daily brief, blockers, neglected work and next-action reasoning |
-| Activity | Local timeline with event-type filters |
-| Settings | Snapshots, restore, recovery bin, export and workspace reset |
+| Home | Personal command center, daily objective, Top 3, risks, blockers and context pulse |
+| Focus | Highest-leverage action, dependency awareness and NOW/LATER/FOLLOW-UP execution |
+| Tasks | CRUD, priority, due dates, status, lane, area, project, context and dependencies |
+| Projects | Goals, health, progress, linked tasks and linked knowledge |
+| Knowledge | Notes, tags, areas, projects, related execution and Knowledge → Task |
+| Areas | Persistent context layer across projects and tasks |
+| Insights | Completion, aging, priority load, risk and lane mix |
+| Activity | Local workspace history and filtering |
+| AI COO | Local diagnosis, project risk, blockers and next-step recommendations |
+| Settings | Workspace controls, IndexedDB/localStorage status, backup, recovery and reset |
 
-## Versioning policy
+## Product model
 
-- **V1.1, V1.2, V1.3...** = incremental features and refinements.
-- **V2.0, V3.0, V4.0, V5.0...** = major product or architecture changes.
-- Every new release must update this README with the improvements introduced in that release.
+Personal OS now treats the workspace as a connected graph of practical objects:
 
-## Zero-cost principle
+```text
+Area
+ ├── Project
+ │    ├── Task
+ │    │    └── Dependency → Task
+ │    └── Knowledge
+ │
+ └── Task
 
-Personal OS is designed to remain **₹0** for the core experience.
+Task / Project / Knowledge
+            ↓
+         Activity
+            ↓
+        AI COO
+```
+
+The objective is to move from a collection of CRUD screens toward a personal operating system where the relationships between records are useful in everyday decisions.
+
+## Zero-cost and privacy principles
+
+Personal OS remains designed for **₹0** core operation:
 
 - No paid infrastructure.
 - No mandatory API key.
 - No subscription.
-- No local application installation required.
+- No local application installation.
 - Browser-based deployment through GitHub Pages.
-- Native browser capabilities are preferred over paid services.
+- Deterministic local intelligence by default.
 
-The current AI COO is deterministic and local. Personal OS does not require an external LLM, vector database or paid AI service.
-
-## Data model & privacy
-
-Personal OS is local-first. Workspace data is stored in browser storage and is not automatically uploaded to GitHub by the application.
-
-V5.1 uses:
-
-- IndexedDB database: `personal_os_db_v5`.
-- Workspace store: `workspace`.
-- Snapshot store: `snapshots_v5`.
-- Active workspace key: `current`.
-- Compatibility key: `personal_os_v51`.
-
-Earlier `personal_os_v5`, `personal_os_v4`, `personal_os_v3`, `personal_os_v2` and `personal_os_v1` data is considered during first-launch migration.
-
-Browser storage is device/browser-specific, so cross-device synchronization is not provided.
+Workspace data stays in browser storage and is not automatically uploaded to GitHub by the application. Cross-device sync is not provided by the core build yet.
 
 ## Architecture
 
-V5.1 remains a single static browser application:
+V6 remains a single static browser application:
 
 - React 18 via CDN.
 - Babel Standalone via CDN.
 - Single static `index.html`.
-- Native IndexedDB for primary persistence.
-- localStorage fallback/compatibility.
-- Browser Web Crypto for optional export hashing.
-- Deterministic local intelligence.
+- IndexedDB primary persistence.
+- localStorage compatibility/fallback.
+- Browser Web Crypto for optional export integrity hashing.
+- Deterministic local scoring and recommendation engine.
 - No server required.
 - GitHub Pages hosting.
 
+## Versioning policy
+
+- **V1.x / V2.x / V3.x / V4.x / V5.x / V6.x** = incremental features and refinements within a major product model.
+- **V2.0, V3.0, V4.0, V5.0, V6.0...** = major product or architecture changes.
+
+Every release must update this README with the improvements introduced in that release.
+
 ## Roadmap
 
-### V5.x
+### V6.x
 
-- Richer dependency graph visualization.
-- Bulk recovery-bin actions.
-- More granular activity filtering.
-- Historical analytics and trend comparisons.
-- Accessibility and deeper keyboard navigation.
-- Relationship editing between tasks, projects and knowledge.
+- Richer visual relationship graph.
+- Drag-and-drop task lanes.
+- Recurring tasks and routines.
+- Better area/project navigation.
+- Stronger local retrieval for knowledge.
+- More detailed weekly review.
+- Accessibility and keyboard navigation polish.
 
-### V6 candidates
+### V7 candidates
 
-- Optional encrypted export vault.
-- Pluggable AI provider adapter with strict local/offline default.
-- Advanced local knowledge graph/retrieval.
+- Local encrypted vault.
+- Pluggable AI adapter with a strict offline default.
+- More advanced local knowledge graph.
 - Rule-based automation builder.
-- Optional cross-device sync only where it remains privacy-safe and ₹0.
+- Optional integrations that preserve the zero-cost/privacy constraint.
 
-These are candidates, not promises. The zero-cost, browser-first and privacy-first principles remain the primary constraints.
+These are candidates, not promises.
 
 ## GitHub Pages
 
