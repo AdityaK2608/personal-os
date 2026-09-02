@@ -6,18 +6,29 @@ Personal OS is a zero-cost, browser-based personal operating system built around
 
 **Capture → Organize → Understand → Recommend → Act**
 
-## Current version: V7.0 — Knowledge Engine
+## Current version: V7.1 — Runtime Stability
 
-V7 makes knowledge a first-class product surface. Personal OS now ships with a **large built-in technical reference library** alongside private personal notes, with both searchable from the same browser application.
+V7.1 keeps the V7 Knowledge Engine but removes the React/Babel compilation dependency from the application shell. The site now uses a dependency-free browser runtime so GitHub Pages can render the interface directly without a client-side compilation step.
 
-The knowledge direction is intentionally inspired by the broader PersonalOS idea of keeping useful context close to everyday work, while the implementation remains our own static, local-first application.
+## V7.1 — Blank-page stability release
 
-## V7.0 — Knowledge Engine
+### Runtime reliability
 
-### Large built-in knowledge library
+- Removed React/Babel from the active application shell.
+- The app now renders with native browser JavaScript.
+- No framework compilation is required before the interface mounts.
+- Removed the extra CDN runtime failure points from the application layer.
+- Kept the same static GitHub Pages deployment model.
 
-V7 includes **132 generated reference entries** across 11 domains:
+### Data compatibility
 
+- V7.1 uses `personal_os_v71` as its active workspace key.
+- Older `personal_os_v7`, `personal_os_v6`, `personal_os_v5`, `personal_os_v4`, `personal_os_v3`, `personal_os_v2` and `personal_os_v1` data is still considered during startup migration.
+- Workspace data remains local to the browser.
+
+### Knowledge Engine retained
+
+- 176 generated built-in reference entries across 11 domains.
 - Linux
 - RHEL
 - Networking
@@ -30,103 +41,55 @@ V7 includes **132 generated reference entries** across 11 domains:
 - AI & ML
 - Productivity
 
-The corpus is bundled into the application, so the reference library works without an external API, backend or database service.
+The corpus is generated from topic packs inside the static application rather than fetched from a remote service.
 
-### Knowledge browser
+## V7.0 — Knowledge Engine
 
-- Dedicated Knowledge module.
-- Domain filters.
+V7 made knowledge a first-class product surface with a large built-in technical reference library alongside private notes.
+
+- Domain browsing.
 - Built-in vs Personal knowledge distinction.
-- Searchable cards and full article views.
-- Topic tags and category metadata.
-- Practical troubleshooting/checklist framing.
-
-### Unified search
-
-Global search now covers:
-
-- Built-in knowledge
-- Personal notes
-- Tasks
-- Projects
-
-`Ctrl+K` / `⌘K` focuses global search.
-
-### Personal second brain
-
-Personal notes remain local and can carry:
-
-- Area
-- Project
-- Tag
-- Body content
-- Related task/project context
-
-Personal knowledge can also be converted directly into a task.
-
-### Knowledge → action
-
-A personal note can surface related tasks/projects using lightweight local token matching, then become an actionable task without leaving the knowledge view.
-
-### Local intelligence
-
-Ask My OS operates over the local workspace and knowledge library. V7 remains deterministic and does not require a paid LLM, embeddings API or vector database.
+- Article views.
+- Topic tags.
+- Global search across knowledge, tasks and projects.
+- Personal note relationships.
+- Knowledge → Task conversion.
+- Local Ask My OS context search.
+- Zero API / zero backend requirement.
 
 ## V6.0 — Personal Brain
 
-V6 changed the product model so Tasks, Projects, Knowledge, Areas, Dependencies and Activity behave as one connected personal context system.
+- Areas as a persistent context layer.
+- Projects with goals and health.
+- NOW / LATER / FOLLOW-UP task lanes.
+- Dependencies and Blocked state.
+- Connected knowledge.
+- Activity history.
+- Focus and Daily Top 3.
+- Local deterministic AI COO.
+- IndexedDB-first technical foundation.
 
-- Areas
-- Projects with goals and health
-- NOW / LATER / FOLLOW-UP task lanes
-- Dependencies and Blocked state
-- Knowledge-to-action workflows
-- Context-aware Home
-- Focus and Daily Top 3
-- Local AI COO and Ask My OS foundation
-- IndexedDB-first architecture with localStorage compatibility
+## V5.x — Technical foundation
 
-## V5.1 — Execution & recovery foundation
-
-- IndexedDB-first browser persistence.
-- LocalStorage fallback.
-- Dependency-aware scoring.
-- Local recovery snapshots.
-- Recovery bin for deleted records.
-- Knowledge → Task conversion.
-- Seven-day execution analytics.
-- Activity filtering.
-- Keyboard-first shortcuts.
-
-## V5.0 — Technical foundation
-
-- Browser database layer.
-- Versioned migration and normalization.
-- Local snapshots.
-- JSON backup/restore.
-- SHA-256 backup digest.
+- IndexedDB-first persistence.
+- LocalStorage compatibility.
+- Schema normalization and migration.
+- Recovery snapshots.
+- Recovery bin.
 - Dependency-aware scoring.
 - Knowledge-to-action matching.
-- Project-aware execution signals.
+- Local execution analytics.
 
-## V4.1 — Stability & hardening
-
-- Removed duplicate legacy React application scripts.
-- Restored `Ctrl+K` / `⌘K` search.
-- Dynamic date and greeting.
-- Safer local-storage validation.
-- Safer activity-history handling.
-- Mobile Settings access.
-- More consistent mutation logging.
-
-## V4.0 — Premium UI
+## V4.x — Premium UI & hardening
 
 - Apple-inspired light visual language.
-- Floating glass sidebar and responsive mobile navigation.
+- Floating glass sidebar.
+- Responsive mobile navigation.
 - Translucent surfaces and blur.
-- Large display hierarchy.
-- Premium dashboard and task presentation.
-- Redesigned Focus, Knowledge, Insights and AI COO.
+- Larger display hierarchy.
+- Keyboard search.
+- Dynamic greeting/date.
+- Runtime and storage hardening.
 
 ## V3.0 — Intelligence foundation
 
@@ -134,7 +97,7 @@ V6 changed the product model so Tasks, Projects, Knowledge, Areas, Dependencies 
 - Daily Top 3.
 - Overdue and neglected-work detection.
 - Smart search.
-- Knowledge-to-action relationship matching.
+- Knowledge-to-action matching.
 - Deterministic AI COO recommendations.
 - Workload and project-risk insights.
 
@@ -142,8 +105,7 @@ V6 changed the product model so Tasks, Projects, Knowledge, Areas, Dependencies 
 
 - Focus Mode.
 - Command Palette.
-- Unified workspace search.
-- Stronger local AI COO reasoning.
+- Unified search.
 - JSON backup/restore.
 - Project health.
 - Activity history.
@@ -161,21 +123,19 @@ V6 changed the product model so Tasks, Projects, Knowledge, Areas, Dependencies 
 
 ## Current feature set
 
-| Module | V7 capability |
+| Module | V7.1 capability |
 | --- | --- |
 | Home | Personal command center, daily objective, Top 3, blockers, project risks and knowledge pulse |
 | Focus | Highest-leverage execution queue with NOW/LATER/FOLLOW-UP logic |
 | Tasks | CRUD, priority, status, due date, lane, area, project, context and dependencies |
 | Projects | Goals, health, progress, linked tasks and linked knowledge |
 | Areas | Persistent context layer for responsibilities |
-| Knowledge | 132 built-in references + private notes, domain filters, related context and task conversion |
+| Knowledge | 176 built-in references + private notes, domain filters, article views and task conversion |
 | Ask My OS | Local context search over tasks, projects and knowledge |
 | Activity | Local operating history |
-| Settings | Backup, local workspace controls and Knowledge Engine information |
+| Settings | Workspace controls, backup and Knowledge Engine information |
 
 ## Knowledge architecture
-
-The built-in corpus is generated from versioned topic packs in the static application:
 
 ```text
 Knowledge Engine
@@ -192,9 +152,7 @@ Knowledge Engine
 └── Productivity
 ```
 
-Each entry contains a title, domain, summary, practical guidance and searchable tags.
-
-This structure makes future corpus expansion straightforward without turning the application into one giant hand-edited text blob.
+Each built-in record contains a title, domain, summary, practical guidance and searchable tags. The corpus can grow without putting individual articles into separate deployment dependencies.
 
 ## Product model
 
@@ -231,22 +189,23 @@ Workspace data remains browser-local and is not automatically uploaded to GitHub
 
 ## Architecture
 
-V7 remains a single static browser application:
+V7.1 is a single static browser application:
 
-- React 18 via CDN.
-- Babel Standalone via CDN.
+- Native HTML/CSS/JavaScript runtime.
+- No React runtime required by the active shell.
+- No Babel compilation required.
 - Single static `index.html`.
 - Browser-local persistence.
-- V1–V6 migration compatibility through normalization.
-- Bundled 132-entry knowledge corpus.
+- V1–V7 migration compatibility through normalization.
+- Bundled 176-entry knowledge corpus.
 - Local search and relationship matching.
-- Deterministic execution scoring and AI COO.
+- Deterministic execution scoring and local AI COO guidance.
 - No server required.
 - GitHub Pages hosting.
 
 ## Versioning policy
 
-- **V1.x, V2.x, V3.x, V4.x, V5.x, V6.x, V7.x** = incremental features and refinements within a product generation.
+- **V1.x through V7.x** = incremental features and refinements within a product generation.
 - **V2.0, V3.0, V4.0, V5.0, V6.0, V7.0...** = major product or architecture changes.
 
 Every release must update this README with the improvements introduced in that release.
@@ -255,12 +214,11 @@ Every release must update this README with the improvements introduced in that r
 
 ### V7.x
 
-- Expand the corpus beyond the initial 132-entry foundation.
-- Add richer article structures, commands and troubleshooting playbooks.
-- Add local favorites and saved knowledge.
-- Add knowledge backlinks and relationship editing.
-- Add better keyboard navigation.
-- Add local knowledge import/export packs.
+- Expand the corpus with deeper command references and troubleshooting playbooks.
+- Favorites and saved knowledge.
+- Knowledge backlinks and relationship editing.
+- Local knowledge import/export packs.
+- Better search relevance and keyboard navigation.
 
 ### V8 candidates
 
