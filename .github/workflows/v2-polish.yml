@@ -1,0 +1,30 @@
+name: Personal OS V2 polish
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  polish:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fix project editor
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text()
+          old='function Projects({data,items,save,del}){const[editing,setEditing]=useState(null);const form=editing===\'new\'?{id:null,name:\'\',description:\'\',progress:0,health:\'On track\'}:editing?items.find(x=>x.id===editing):null;return <><Title title="Projects" sub="Projects now act as strategic containers for execution." action={<Btn primary onClick={()=>setEditing(\'new\')}>+ Add project</Btn>}/>{form&&<div className="glass rounded-2xl p-5 mb-5 grid md:grid-cols-2 gap-3"><Input value={form.name} onChange={()=>{}} placeholder="Project name"/><ProjectEditor data={form} onCancel={()=>setEditing(null)} onSave={x=>{save(x);setEditing(null)}}/></div>}<div className="grid md:grid-cols-2 gap-5">'
+          new='function Projects({data,items,save,del}){const[editing,setEditing]=useState(null);const form=editing===\'new\'?{id:null,name:\'\',description:\'\',progress:0,health:\'On track\'}:editing?items.find(x=>x.id===editing):null;return <><Title title="Projects" sub="Projects now act as strategic containers for execution." action={<Btn primary onClick={()=>setEditing(\'new\')}>+ Add project</Btn>}/>{form&&<ProjectEditor data={form} onCancel={()=>setEditing(null)} onSave={x=>{save(x);setEditing(null)}}/>}<div className="grid md:grid-cols-2 gap-5">'
+          if old not in s: raise SystemExit('target not found')
+          p.write_text(s.replace(old,new))
+          PY
+      - name: Commit fix
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Fix V2 project editor layout" || exit 0
+          git push
