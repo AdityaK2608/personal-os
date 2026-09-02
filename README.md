@@ -6,25 +6,44 @@ Personal OS is a zero-cost, browser-based personal operating system built around
 
 **Capture → Organize → Understand → Recommend → Act**
 
-## Current version: V7.2 — Runtime Reliability
+## Current version: V7.3 — Button & Interaction Reliability
 
-V7.2 keeps the V7 Knowledge Engine and removes the remaining framework/runtime failure risk from the deployed application. The active site is now a **single dependency-free HTML/CSS/JavaScript application** with an explicit visible fallback if JavaScript fails.
+V7.3 keeps the V7 Knowledge Engine and makes the visible UI actions real, persistent operations. Navigation, search, task CRUD, project CRUD, note CRUD, knowledge browsing, knowledge-to-task conversion, backup/restore controls, reset, and keyboard actions now use a centralized browser action layer.
 
-## V7.2 — Blank-page reliability release
+## V7.3 — Interaction release
 
-### Runtime hardening
+### All visible controls are wired
 
-- Removed the active React/Babel dependency from the application shell.
-- The interface renders using native browser JavaScript only.
-- No client-side compilation is needed before the app can mount.
-- No external application CDN is required.
-- Added a visible loading/fallback surface so a runtime error does not appear as a silent blank page.
-- Added defensive startup error reporting in the page itself.
-- Kept the GitHub Pages and ₹0 deployment model.
+- Centralized `data-action` dispatcher for UI buttons.
+- Navigation works from desktop and mobile.
+- Global search filters built-in knowledge, personal notes, tasks and projects.
+- Knowledge cards open full articles.
+- Knowledge category filters switch the visible corpus.
+- Create/edit/delete task operations are functional.
+- Task Done/Reopen actions persist to browser storage.
+- Create/edit project operations are functional.
+- Create/edit/delete personal notes are functional.
+- Knowledge → Task conversion is functional.
+- JSON backup export works through a browser download.
+- JSON backup import validates the major collections before loading.
+- Workspace reset restores starter data.
+- `Ctrl+K` / `⌘K` focuses search.
+- `Ctrl+N` / `⌘N` opens a new task.
+- `Esc` closes active modal/detail UI.
 
-### Knowledge Engine retained
+### Runtime safety
 
-- **176 built-in reference entries** across 11 domains.
+- Native HTML/CSS/JavaScript only.
+- No React dependency.
+- No Babel dependency.
+- No application CDN dependency.
+- A visible application shell exists before JavaScript runs.
+- Runtime errors cannot silently remove the base HTML surface.
+
+## Knowledge Engine
+
+V7's built-in library remains bundled locally across 11 domains:
+
 - Linux
 - RHEL
 - Networking
@@ -34,44 +53,14 @@ V7.2 keeps the V7 Knowledge Engine and removes the remaining framework/runtime f
 - DevOps
 - Programming
 - Databases
-- AI & ML
+- AI and ML
 - Productivity
 
-The corpus is generated locally from topic packs embedded in the static application and does not depend on a remote service.
-
-### Workspace features retained
-
-- Personal command center.
-- Tasks with NOW / LATER / FOLLOW-UP lanes.
-- Projects and areas.
-- Knowledge and personal notes.
-- Search across knowledge, tasks and projects.
-- Knowledge → Task conversion.
-- Local activity history.
-- Local browser persistence.
-- JSON backup.
-- Mobile navigation.
-- Keyboard shortcuts.
-
-## V7.1 — Knowledge Engine & previous runtime stabilization
-
-- Knowledge Engine with 176 built-in references.
-- 11 technical/productivity domains.
-- Built-in vs Personal knowledge distinction.
-- Article views and domain filtering.
-- Global search.
-- Personal note relationships.
-- Knowledge → Task conversion.
-- Dependency-aware execution foundation.
-- Dependency-free runtime direction started.
-
-## V7.0 — Knowledge Engine
-
-V7 made knowledge a first-class product surface with a large built-in technical reference library alongside private notes.
+The corpus is generated from topic packs so future releases can expand it without turning the application into a remote-service dependency.
 
 ## V6.0 — Personal Brain
 
-- Areas as a persistent context layer.
+- Areas as persistent context.
 - Projects with goals and health.
 - NOW / LATER / FOLLOW-UP task lanes.
 - Dependencies and Blocked state.
@@ -134,36 +123,17 @@ V7 made knowledge a first-class product surface with a large built-in technical 
 
 ## Current feature set
 
-| Module | V7.2 capability |
+| Module | V7.3 capability |
 | --- | --- |
-| Home | Personal command center, daily objective, Top 3, blockers, project risks and knowledge pulse |
-| Tasks | NOW/LATER/FOLLOW-UP, priorities, status, due dates, areas, projects and dependencies |
-| Projects | Goals, health, progress and linked task context |
-| Areas | Persistent context layer for responsibilities |
-| Knowledge | 176 built-in references + private notes, domain filtering and article views |
-| Ask/Search | Local search over built-in knowledge, notes, tasks and projects |
-| Activity | Local operating history |
-| Backup | Browser-local JSON export |
-| Runtime | Native HTML/CSS/JavaScript with no framework requirement |
-
-## Knowledge architecture
-
-```text
-Knowledge Engine
-├── Linux
-├── RHEL
-├── Networking
-├── Cybersecurity
-├── SIEM / SOC
-├── Cloud
-├── DevOps
-├── Programming
-├── Databases
-├── AI & ML
-└── Productivity
-```
-
-Each built-in record contains a title, domain, summary, practical guidance and searchable tags. The corpus is intentionally structured so future releases can add deeper command references, playbooks and cross-links.
+| Home | Command center, Daily Top 3, project risk, knowledge pulse and working shortcuts |
+| Tasks | Create, edit, delete, complete/reopen, priority, lane, area, project, context and due date |
+| Projects | Create, edit, goals, health and execution pulse |
+| Areas | Persistent context layer |
+| Knowledge | Built-in library + private notes, filters, full views and task conversion |
+| Search | Unified local search across knowledge, notes, tasks and projects |
+| Activity | Local mutation history |
+| Backup | JSON export/import and local reset |
+| Runtime | Dependency-free native browser application |
 
 ## Product model
 
@@ -201,23 +171,23 @@ Workspace data remains browser-local and is not automatically uploaded to GitHub
 
 ## Architecture
 
-V7.2 is a single static browser application:
+V7.3 is a single static browser application:
 
 - Native HTML/CSS/JavaScript runtime.
-- No React runtime required by the active shell.
-- No Babel compilation required.
-- Single static `index.html`.
+- One centralized UI action dispatcher.
 - Browser-local persistence.
-- V1–V7 migration compatibility through normalization where available.
-- Bundled 176-entry knowledge corpus.
-- Local search and knowledge relationships.
+- V1–V7 migration compatibility where compatible data exists.
+- Bundled technical knowledge corpus.
+- Local search and relationship matching.
 - Deterministic execution guidance.
 - No server required.
 - GitHub Pages hosting.
 
-## Runtime reliability rule
+## Release reliability rule
 
-A release is not considered complete when the source merely exists in GitHub. The application must also have a visible render path that does not depend on optional framework loading. V7.2 therefore keeps a plain HTML fallback visible before application JavaScript executes and exposes startup errors in-page rather than failing to an empty viewport.
+A release is not considered complete when source code merely exists in GitHub. Visible controls must have a deterministic action path, mutations must persist locally, and the application must retain a renderable base surface without optional framework loading.
+
+V7.3 applies that rule to the visible UI through a centralized action dispatcher and browser-native persistence/actions.
 
 ## Versioning policy
 
@@ -234,7 +204,9 @@ Every release must update this README with the improvements introduced in that r
 - Favorites and saved knowledge.
 - Knowledge backlinks and relationship editing.
 - Local knowledge import/export packs.
-- Better search relevance and keyboard navigation.
+- Better search relevance.
+- More complete keyboard navigation.
+- Richer project/task relationship views.
 
 ### V8 candidates
 
