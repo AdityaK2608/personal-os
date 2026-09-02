@@ -1,0 +1,44 @@
+name: Personal OS V4.1 bugfix
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/v4.1-fix.yml']
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Remove duplicate legacy app scripts
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text()
+          css_marker='<style id="personal-os-v4-css">'
+          css_start=s.find(css_marker)
+          css_end=s.find('</style>', css_start)
+          if css_start < 0 or css_end < 0:
+              raise SystemExit('V4 CSS marker not found')
+          head=s[:css_start]
+          v4_css=s[css_start:css_end+8]
+          v4_scripts=''
+          marker='<!-- PERSONAL_OS_V4 -->'
+          marker_pos=s.rfind(marker)
+          if marker_pos < 0:
+              raise SystemExit('V4 marker not found')
+          v4_block=s[css_end+8:marker_pos]
+          first_v4_script=v4_block.find('<script type="text/babel" id="personal-os-v4">')
+          if first_v4_script < 0:
+              raise SystemExit('V4 script marker not found')
+          v4_script=v4_block[first_v4_script:]
+          clean=head+v4_css+'\n'+v4_script+'\n'+marker+'</body></html>'
+          p.write_text(clean)
+          PY
+          git config user.name 'Personal OS Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add index.html
+          git commit -m 'fix: remove duplicate legacy scripts from V4.1'
+          git push
