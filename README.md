@@ -6,151 +6,212 @@ Personal OS is a zero-cost, browser-based personal operating system built around
 
 **Capture → Organize → Understand → Recommend → Act**
 
-## Current version: V4.1
+## Current version: V5.0
 
-V4.1 is a stability and polish release on top of the V4 premium UI redesign. It removes legacy script collisions, restores keyboard search, makes the date and greeting dynamic, hardens browser-data loading, and improves mobile access to Settings.
+V5 is a major technical foundation release. It keeps the premium V4 interface while moving the workspace toward a real browser-side application platform: IndexedDB-first persistence, automatic recovery snapshots, dependency-aware execution intelligence, stronger schema normalization, and connected knowledge-to-action workflows.
 
-## V4.1 improvements — Bug fixes & hardening
+## V5.0 — Major technical update
 
-- **Removed duplicate legacy React scripts** — V4 now runs from a single active application script instead of retaining conflicting V2/V3 global declarations.
-- **Restored `Ctrl+K` / `⌘K` search** — the global shortcut now focuses the V4 search field again.
-- **Dynamic date** — the Home page no longer contains a hard-coded release date.
-- **Dynamic greeting** — Home now switches between morning, afternoon and evening based on the current local time.
-- **Safer local-storage loading** — malformed or incomplete workspace structures no longer get treated as valid V4 state.
-- **Safer activity handling** — activity history is guarded as an array during migration and mutations.
-- **Mobile Settings access** — the floating mobile navigation now includes a `More` entry for Settings instead of silently hiding it.
-- **Activity logging consistency** — task/project/knowledge deletion and mutations retain a usable local activity trail.
-- **Temporary CI cleanup** — temporary V4.1 fix workflows were removed after their successful runs; the production repo does not depend on them.
+### 1. Browser database layer
 
-## V4.0 improvements — Premium UI
+- **IndexedDB-first persistence** — V5 stores the active workspace in a dedicated browser database instead of relying only on localStorage.
+- **LocalStorage fallback** — if IndexedDB is unavailable, V5 falls back to the existing browser storage model.
+- **Asynchronous save path** — workspace persistence is handled without requiring a server or desktop installation.
+- **Dedicated V5 database namespace** — `personal_os_db_v5` and `personal_os_v5` keep V5 data isolated from earlier versions.
 
-- **Apple-inspired visual language** — system-style typography, generous whitespace, restrained contrast and a premium light canvas.
-- **Floating glass sidebar** — navigation now feels like a product workspace rather than a traditional admin dashboard.
-- **Translucent surfaces** — cards, search and mobile navigation use layered transparency and blur for depth.
-- **Larger visual hierarchy** — the dashboard uses editorial-scale headlines and compact supporting metadata.
-- **Minimal interaction chrome** — pill controls, quiet secondary actions and fewer dense borders reduce visual noise.
-- **Premium task presentation** — priority, due date and the V3 local score are visible without turning the page into a spreadsheet.
-- **Executive-style dashboard** — Daily Top 3, operating brief, workspace completion and project attention are presented as a calm command surface.
-- **Redesigned Focus** — one-task execution gets a cleaner, distraction-light presentation.
-- **Redesigned Knowledge** — notes are presented as a premium personal library rather than a CRUD grid.
-- **Redesigned Insights** — analytics are intentionally lightweight and readable instead of BI-heavy.
-- **Redesigned AI COO** — recommendations are presented as an executive layer with clear action and reasoning.
-- **Responsive mobile navigation** — a floating bottom navigation bar replaces desktop sidebar patterns on smaller screens.
-- **Smooth visual transitions** — lightweight page fade motion adds polish without introducing a dependency.
+### 2. Versioned migration & normalization
 
-## V3.0 intelligence
+- **V4/V3/V2/V1 migration path** — first launch looks for earlier Personal OS browser data and brings it into the V5 schema.
+- **Schema normalization** — task, project, knowledge, activity and recovery collections are validated and normalized before use.
+- **Safer defaults** — malformed fields are replaced with known-safe values rather than being allowed to break rendering.
+- **V5 schema marker** — active workspaces are explicitly stamped with `schemaVersion: 5`.
 
-V3 introduced the local intelligence foundation that V4 preserves:
+### 3. Recovery system
 
-- Smart priority scoring using priority, urgency, project health, task age and blocked-state signals.
+- **Automatic local snapshots** — V5 keeps recent workspace snapshots in a separate IndexedDB store.
+- **One-click snapshot restore** — Settings exposes recent recovery points.
+- **Recovery bin** — deleted tasks and knowledge records are retained locally instead of disappearing immediately.
+- **JSON backup/restore** — a full workspace export can be saved and later restored.
+- **SHA-256 backup digest** — exports include a browser-generated integrity digest when Web Crypto is available.
+
+### 4. Execution intelligence 5.0
+
+- **Dependency-aware task scoring** — priority, due date, project health, task age and dependency state influence the recommended order.
+- **Blocked/dependency detection** — the system explicitly distinguishes work that cannot move yet.
+- **Reasoned recommendations** — AI COO explains signals such as overdue work, project risk, near deadlines and blockers.
+- **Daily Top 3** — Focus and Home share the same ranked execution queue.
+- **Project-aware scoring** — work attached to risky projects is automatically elevated.
+
+### 5. Knowledge-to-action layer
+
+- **Local relationship matching** — knowledge notes are matched to related tasks and projects using lightweight token overlap.
+- **Related context** — each note shows likely connected execution records.
+- **Knowledge → Task** — convert a useful note directly into actionable work.
+- **No vector database required** — all relationship scoring remains browser-side and zero-cost.
+
+### 6. Better operating analytics
+
+- **Seven-day task activity view** — activity events are grouped into a simple local execution trend.
+- **Open-work aging** — average age of active tasks is surfaced.
+- **Priority load** — high-priority queue size is visible at a glance.
+- **Project pulse** — linked task completion can inform project progress while preserving a manual project baseline.
+
+### 7. Keyboard-first operation
+
+- `Ctrl+K` / `⌘K` opens global search.
+- `Ctrl+N` / `⌘N` opens a new task.
+- `Esc` closes the active search state.
+- Global search covers Tasks, Projects and Knowledge.
+
+## V4.1 — Stability & hardening
+
+- Removed duplicate legacy React application scripts.
+- Restored `Ctrl+K` / `⌘K` search.
+- Dynamic local date and greeting.
+- Safer local-storage collection validation.
+- Safer activity-history handling.
+- Mobile Settings access through `More`.
+- More consistent activity logging for mutations.
+- Temporary CI repair workflows removed after successful fixes.
+
+## V4.0 — Premium UI
+
+- Apple-inspired visual language.
+- Floating glass sidebar and responsive bottom navigation.
+- Translucent surfaces, blur and restrained contrast.
+- Larger display hierarchy and calmer dashboard composition.
+- Premium task presentation and executive-style dashboard.
+- Redesigned Focus, Knowledge, Insights and AI COO surfaces.
+- Responsive mobile navigation.
+
+## V3.0 — Intelligence foundation
+
+- Smart priority scoring using urgency, priority, project health, age and blockers.
 - Daily Top 3 and “Do this next”.
 - Overdue and neglected-work detection.
-- Smart text/concept search across tasks, projects and knowledge.
+- Smart text search across tasks, projects and knowledge.
 - Knowledge-to-action relationship matching.
-- Local AI COO recommendations and diagnosis.
+- Local deterministic AI COO diagnosis and recommendations.
 - Insights for completion, aging, workload and project risk.
-- Versioned data schema and V2 → V3 migration.
+- Versioned data schema and migration.
 
-## V2.0 improvements
+## V2.0 — Workspace foundation
 
-- Focus Mode
-- Command Palette / `Ctrl+K`
-- Unified workspace search
-- Stronger local AI COO reasoning
-- V1/V1.1 → V2 migration
-- Dedicated V2 storage
-- JSON backup and restore
-- Project health model
-- Better operating dashboard
-- Mobile navigation
-- Local activity history
-- Private/offline-first architecture
+- Focus Mode.
+- Command Palette / `Ctrl+K`.
+- Unified workspace search.
+- Stronger local AI COO reasoning.
+- V1/V1.1 → V2 migration.
+- Dedicated V2 storage.
+- JSON backup and restore.
+- Project health model.
+- Operating dashboard, activity history and mobile navigation.
 
-## V1.1 improvements
+## V1.1 — Product foundation expansion
 
-- Dynamic date and greeting
-- Task creation, editing, deletion and filtering
-- Project creation, editing and deletion
-- Knowledge note creation, editing and deletion
-- Tags/categories for knowledge
-- Automatic activity logging
-- Global search
-- Improved dashboard focus and project health
-- Mobile navigation improvements
-- JSON export/import/reset controls
+- Dynamic date and greeting.
+- Task/project/knowledge CRUD.
+- Tags and categories.
+- Automatic activity logging.
+- Global search.
+- Project health and dashboard improvements.
+- Mobile navigation improvements.
+- JSON export/import/reset controls.
 
-## V1.0 foundation
+## V1.0 — Original foundation
 
-- Dashboard
-- Tasks
-- Projects
-- Knowledge Base
-- Activity timeline
-- AI COO foundation
-- Browser persistence using localStorage
-- GitHub Pages hosting
+- Dashboard.
+- Tasks.
+- Projects.
+- Knowledge Base.
+- Activity timeline.
+- AI COO foundation.
+- Browser persistence.
+- GitHub Pages hosting.
 
 ## Current feature set
 
-| Module | V4.1 capability |
+| Module | V5 capability |
 | --- | --- |
-| Home | Premium command center, dynamic greeting/date, Daily Top 3, operating brief, project attention |
-| Focus | Recommended next task and completion workflow |
-| Tasks | CRUD, priority, status, due dates, V3 local ranking score |
-| Projects | CRUD, progress, project health and risk signals |
-| Knowledge | CRUD, tags, smart search and clean library presentation |
-| Insights | Completion, aging, workload and project-risk views |
-| Activity | Local operating history with safer persistence |
-| AI COO | Local recommendations, diagnosis and action guidance |
-| Settings | Schema health, JSON backup/restore, reset and mobile access |
+| Home | Premium command center, dynamic greeting/date, objective, Daily Top 3, operating brief |
+| Focus | Dependency-aware recommended next task and completion workflow |
+| Tasks | CRUD, priority, status, due dates, dependencies, V5 execution score |
+| Projects | CRUD, health, progress baseline and linked-task progress pulse |
+| Knowledge | CRUD, tags, related tasks/projects, Knowledge → Task conversion |
+| Insights | Completion, open aging, priority load, seven-day task activity, project pulse |
+| AI COO | Daily brief, diagnosis, blockers, stale work and ranked recommendations |
+| Activity | Local mutation and execution history |
+| Settings | IndexedDB status, snapshots, restore, JSON backup/restore, reset, workspace identity |
 
 ## Versioning policy
 
-We use semantic product evolution for Personal OS:
+- **V1.1, V1.2, V1.3...** = incremental features and refinements.
+- **V2.0, V3.0, V4.0, V5.0...** = major product or architecture changes.
 
-- **V1.1, V1.2, V1.3...** = minor improvements and incremental features.
-- **V2.0, V3.0, V4.0...** = major product or architecture changes.
-
-Every new version must update this README with the improvements introduced in that release.
+Every new release must update this README with the improvements introduced in that release.
 
 ## Zero-cost principle
 
 Personal OS is designed to remain **₹0** for the core experience.
 
-- No paid infrastructure
-- No mandatory API key
-- No subscription
-- No local software installation required
-- Browser-based deployment through GitHub Pages
+- No paid infrastructure.
+- No mandatory API key.
+- No subscription.
+- No local application installation required.
+- Browser-based deployment through GitHub Pages.
+- V5 uses native browser capabilities instead of a paid backend.
 
-V4.1 continues to use local deterministic intelligence. It does not require an external LLM, vector database, or paid AI service.
+The current AI COO remains deterministic and local. V5 does not require an external LLM, vector database or paid AI service.
 
 ## Data model & privacy
 
-Personal OS is local-first. Workspace data is stored in browser storage and is not automatically uploaded to GitHub. Exported JSON backups are created only when you explicitly choose to export them.
+Personal OS is local-first. Workspace data is stored in browser storage and is not automatically uploaded to GitHub by the application.
 
-Because browser storage is device/browser-specific, data does not automatically sync between devices yet.
+V5 uses:
 
-V4 uses a dedicated `personal_os_v4` storage key and migrates data from `personal_os_v3`, `personal_os_v2`, or `personal_os_v1` when available. V4.1 additionally validates the core collections and protects activity history handling during startup and mutations.
+- IndexedDB database: `personal_os_db_v5`.
+- Workspace key: `current` inside the V5 workspace store.
+- Snapshot store: `snapshots_v5`.
+- LocalStorage fallback/compatibility key: `personal_os_v5`.
+
+On first V5 launch, earlier `personal_os_v4`, `personal_os_v3`, `personal_os_v2` or `personal_os_v1` data is migrated when available.
+
+Browser storage is device/browser-specific, so cross-device synchronization is not provided yet.
+
+## Architecture
+
+V5 remains a single static browser application:
+
+- React 18 via CDN.
+- Babel Standalone via CDN.
+- Single static `index.html`.
+- Native IndexedDB for primary local persistence.
+- localStorage fallback for browser compatibility.
+- Browser Web Crypto for optional backup integrity hashing.
+- Deterministic local intelligence engine.
+- No server required.
+- GitHub Pages hosting.
 
 ## Roadmap
 
-### V4.x
+### V5.x
 
-- Refine animations and micro-interactions
-- Add richer relationship editing between tasks, projects and knowledge
-- Improve historical analytics as more local activity accumulates
-- Add stronger accessibility and keyboard navigation polish
-- Add a clearer mobile `More` surface for secondary utilities
+- Richer dependency visualisation.
+- Better recovery-bin management.
+- More keyboard navigation and accessibility polish.
+- More historical analytics.
+- Better activity filtering and timeline views.
+- Expanded knowledge relationship editing.
 
-### V5 candidates
+### V6 candidates
 
-- Pluggable AI provider adapter
-- Optional encrypted cross-device sync
-- More advanced knowledge graph capabilities
-- Deeper automation and proactive workflows
+- Optional encrypted export vault.
+- Pluggable AI provider adapter with a strict local/offline default.
+- More advanced local knowledge graph and retrieval.
+- Rule-based automation builder.
+- Optional cross-device sync only where it can remain privacy-safe and ₹0.
 
-These are candidates, not promises; the zero-cost and privacy principles remain the primary constraints.
+These are candidates, not promises. The zero-cost, browser-first and privacy-first principles remain the primary constraints.
 
 ## GitHub Pages
 
@@ -159,16 +220,3 @@ The application is served directly from the repository through GitHub Pages.
 Live app: https://adityak2608.github.io/personal-os/
 
 Repository: https://github.com/AdityaK2608/personal-os
-
-## Architecture
-
-The application remains intentionally lightweight:
-
-- React 18 via CDN
-- Babel Standalone via CDN
-- Tailwind CSS via CDN
-- Single static `index.html`
-- Browser storage for persistence
-- No server required
-
-V4.1 remains primarily a presentation-layer and reliability release over the V3 intelligence foundation. The premium visual system and local intelligence remain browser-side so the core product stays easy to run and maintain at ₹0.
