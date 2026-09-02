@@ -1,0 +1,25 @@
+name: Personal OS V4.1 label fix
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/v4.1-title.yml']
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Update release label
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text().replace('<title>Personal OS 4.0</title>','<title>Personal OS 4.1</title>')
+          p.write_text(s)
+          PY
+          git config user.name 'Personal OS Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add index.html
+          git commit -m 'fix: update Personal OS document title to V4.1'
+          git push
